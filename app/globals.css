@@ -18,12 +18,20 @@
   --color-background: #FFFFFF;
   --color-foreground: #1A2421;
 
+  /* next/font injects --font-body and --font-display on <html>.
+     Reference them here so Tailwind's font-sans / font-heading utilities work. */
   --font-sans: var(--font-body), system-ui, sans-serif;
-  --font-display: var(--font-display), system-ui, sans-serif;
+  --font-heading: var(--font-display), system-ui, sans-serif;
 }
 
 :root {
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --nav-strip: 36px;
+  --nav-main: 64px;
+  --nav-h: calc(var(--nav-strip) + var(--nav-main));
+}
+@media (min-width: 768px) {
+  :root { --nav-main: 80px; }
 }
 
 * { box-sizing: border-box; }
@@ -34,191 +42,34 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background: #fff;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.6;
-  min-height: 100dvh;
-  overflow-x: hidden;
-}
+@layer base {
+  body {
+    background: #fff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  color: inherit;
-  text-wrap: balance;
-}
-h1 { font-size: clamp(2rem, 5.5vw, 3.75rem); line-height: 1.05; letter-spacing: -0.025em; }
-h2 { font-size: clamp(1.625rem, 3.5vw, 2.5rem); }
-h3 { font-size: clamp(1.125rem, 2vw, 1.375rem); line-height: 1.25; }
-h4 { font-size: 1rem; line-height: 1.3; }
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: inherit;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2.25rem, 6.5vw, 4.75rem); line-height: 1.02; letter-spacing: -0.03em; }
+  h2 { font-size: clamp(1.625rem, 3.5vw, 2.5rem); }
+  h3 { font-size: clamp(1.125rem, 2vw, 1.375rem); line-height: 1.25; }
+  h4 { font-size: 1rem; line-height: 1.3; }
 
-p { color: var(--color-muted); }
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
-
-.container-x {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-@media (min-width: 768px) {
-  .container-x { padding: 0 1.75rem; }
-}
-
-/* Utility classes */
-
-.eyebrow {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--color-green);
-  text-transform: uppercase;
-  margin-bottom: 0.875rem;
-}
-
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.4rem 0.75rem;
-  border-radius: 999px;
-  background: var(--color-green-soft);
-  color: var(--color-green-dark);
-}
-
-/* Buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  padding: 0.75rem 1.375rem;
-  border-radius: 10px;
-  border: 1.5px solid transparent;
-  cursor: pointer;
-  transition: background-color 250ms var(--ease),
-              color 250ms var(--ease),
-              border-color 250ms var(--ease),
-              transform 250ms var(--ease),
-              box-shadow 250ms var(--ease);
-  background: transparent;
-  white-space: nowrap;
-}
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); }
-
-.btn-primary {
-  background: var(--color-green);
-  color: #fff;
-  border-color: var(--color-green);
-  box-shadow: 0 4px 14px -4px rgba(19,122,77,0.4);
-}
-.btn-primary:hover {
-  background: var(--color-green-dark);
-  border-color: var(--color-green-dark);
-}
-
-.btn-red {
-  background: var(--color-red);
-  color: #fff;
-  border-color: var(--color-red);
-}
-.btn-red:hover { background: #B83329; border-color: #B83329; }
-
-.btn-outline {
-  color: var(--color-ink);
-  border-color: var(--color-rule);
-  background: #fff;
-}
-.btn-outline:hover {
-  border-color: var(--color-green);
-  color: var(--color-green);
-}
-
-.btn-white {
-  background: #fff;
-  color: var(--color-green);
-  border-color: #fff;
-}
-.btn-white:hover { background: var(--color-cream); }
-
-.btn-ghost {
-  color: inherit;
-}
-.btn-ghost:hover { color: var(--color-green); }
-
-/* Card */
-.card {
-  background: #fff;
-  border: 1px solid var(--color-rule);
-  border-radius: 16px;
-  transition: transform 350ms var(--ease), box-shadow 350ms var(--ease), border-color 350ms var(--ease);
-}
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 36px -22px rgba(26, 36, 33, 0.18);
-  border-color: var(--color-green-soft);
-}
-
-/* Reveal */
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
-}
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* Underline link */
-.under {
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 100% 1px;
-  padding-bottom: 2px;
-  transition: background-size 300ms var(--ease);
-}
-.under:hover { background-size: 0 1px; }
-
-/* Star rating */
-.star {
-  display: inline-block;
-  color: var(--color-yellow);
-  letter-spacing: 0.1em;
-}
-
-/* Marquee */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-.marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 38s linear infinite;
-}
-
-/* Pulse dot */
-@keyframes pulse-dot {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(19, 122, 77, 0.45); }
-  50%      { box-shadow: 0 0 0 8px rgba(19, 122, 77, 0); }
-}
-.pulse-dot {
-  animation: pulse-dot 1.8s ease-out infinite;
+  p { color: var(--color-muted); }
+  .bg-ink p, .bg-green p, [data-dark] p { color: inherit; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -226,5 +77,4 @@ img { max-width: 100%; display: block; }
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
-  .reveal { opacity: 1; transform: none; }
 }

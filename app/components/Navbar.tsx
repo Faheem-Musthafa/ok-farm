@@ -5,6 +5,8 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
@@ -23,8 +25,10 @@ export default function Navbar() {
     window.addEventListener("scroll", onS, { passive: true });
     return () => window.removeEventListener("scroll", onS);
   }, []);
-
-  useEffect(() => setOpen(false), [path]);
+  useEffect(() => {
+    const t = setTimeout(() => setOpen(false), 0);
+    return () => clearTimeout(t);
+  }, [path]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -37,7 +41,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50">
       {/* utility strip */}
       <div className="bg-green text-white text-sm">
-        <div className="container-x flex items-center justify-between gap-4 h-9">
+        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 flex items-center justify-between gap-4 h-9">
           <div className="flex items-center gap-4 md:gap-6">
             <a href="tel:+919895056979" className="flex items-center gap-1.5 hover:underline">
               <PhoneIcon />
@@ -67,24 +71,16 @@ export default function Navbar() {
           scrolled ? "shadow-[0_4px_18px_-12px_rgba(26,36,33,0.18)] border-b border-rule" : "border-b border-rule"
         }`}
       >
-        <div className="container-x flex items-center justify-between h-16 md:h-20">
-          <Link href="/" className="flex items-center gap-2.5" aria-label="OK Farm Fresh — home">
+        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 flex items-center justify-between h-16 md:h-20">
+          <Link href="/" className="flex items-center" aria-label="OK Farm Fresh — home">
             <Image
-              src="/OK farm.png"
-              alt=""
-              width={40}
-              height={40}
+              src="/ok farm fresh with tag.svg"
+              alt="OK Farm Fresh"
+              width={176}
+              height={60}
               priority
-              className="rounded-full"
+              className="h-10 md:h-12 w-auto"
             />
-            <div className="leading-none">
-              <p className="font-display font-extrabold text-lg md:text-xl tracking-tight">
-                OK Farm <span className="text-green">Fresh</span>
-              </p>
-              <p className="text-[11px] text-muted mt-0.5 hidden sm:block">
-                Edarikode, Kottakkal
-              </p>
-            </div>
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">
@@ -110,7 +106,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             <Link
               href="/contact"
-              className="hidden sm:inline-flex btn btn-primary !py-2.5 !px-4 text-sm"
+              className="hidden sm:inline-flex items-center justify-center gap-2 font-sans font-bold px-6 py-2.5 rounded-xl border-2 border-transparent cursor-pointer transition-all duration-300 hover:-translate-y-[2px] active:translate-y-0 whitespace-nowrap bg-green text-white shadow-md hover:shadow-xl hover:bg-green-500 text-sm"
             >
               Order Now
             </Link>
@@ -143,14 +139,16 @@ export default function Navbar() {
       </div>
 
       {/* mobile drawer */}
-      <div
-        className={`md:hidden fixed inset-x-0 top-[calc(36px+64px)] bottom-0 bg-white z-40 overflow-y-auto transition-[opacity,transform] duration-400 ${
-          open
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-2 pointer-events-none"
-        }`}
-      >
-        <nav className="container-x py-6 flex flex-col gap-1">
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="md:hidden fixed inset-x-0 top-[var(--nav-h)] bottom-0 bg-white z-40 overflow-y-auto"
+          >
+        <nav className="w-full max-w-[1280px] mx-auto px-4 md:px-7 py-6 flex flex-col gap-1">
           {links.map((l) => {
             const active = path === l.href;
             return (
@@ -167,7 +165,7 @@ export default function Navbar() {
               </Link>
             );
           })}
-          <Link href="/contact" className="btn btn-primary mt-5">
+          <Link href="/contact" className="inline-flex items-center justify-center gap-2 font-sans font-bold px-6 py-3.5 rounded-xl border-2 border-transparent cursor-pointer transition-all duration-300 hover:-translate-y-[2px] active:translate-y-0 whitespace-nowrap bg-green text-white shadow-md hover:shadow-xl hover:bg-green-500 text-base mt-5">
             Order Now
           </Link>
           <div className="mt-8 pt-6 border-t border-rule space-y-2 text-sm text-muted">
@@ -190,7 +188,9 @@ export default function Navbar() {
             </p>
           </div>
         </nav>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
