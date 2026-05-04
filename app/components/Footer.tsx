@@ -250,10 +250,18 @@ export default function Footer() {
             <Link href="/faq" className="hover:text-white transition">
               FAQ
             </Link>
-            <span className="hidden sm:inline-flex items-center gap-3 bg-white/5 px-4 py-2 rounded-full border border-white/10">
-              Made fresh in Kerala
-            </span>
           </nav>
+        </div>
+        <div className="border-t border-white/5 px-4 py-4 md:px-7 text-center text-xs text-white/50 font-medium tracking-wide">
+          Powered by{" "}
+          <a
+            href="https://afonex.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-white/80 hover:text-green transition underline-offset-4 hover:underline"
+          >
+            afonex.in
+          </a>
         </div>
       </div>
     </footer>

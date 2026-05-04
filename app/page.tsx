@@ -112,7 +112,7 @@ export default function Home() {
           src="/hero-farm.png"
           alt="OK Farm Fresh pasture"
           fill
-          priority
+          preload
           parallaxSpeed={0.3}
           zoom
           className="object-cover"
@@ -124,7 +124,7 @@ export default function Home() {
         <div className="absolute top-[20%] right-[8%] w-72 h-72 rounded-full bg-yellow-300/20 blur-[80px] -z-10 animate-[blob_22s_ease-in-out_infinite] pointer-events-none" />
         <div className="absolute bottom-[10%] left-[5%] w-96 h-96 rounded-full bg-green-500/30 blur-[100px] -z-10 animate-[blob_18s_ease-in-out_infinite_reverse] pointer-events-none" />
 
-        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 py-16 md:py-24 w-full relative">
+        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 py-12 sm:py-16 md:py-24 w-full relative">
           <div className="max-w-2xl text-white">
             <Reveal delay={0} variant="scale">
               <span className="inline-flex items-center gap-2 text-[11px] sm:text-xs font-bold tracking-wider px-3.5 py-1.5 rounded-full bg-white/15 text-white backdrop-blur-md border border-white/20 uppercase">
@@ -141,7 +141,7 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={300} variant="up">
-              <p className="mt-6 text-lg sm:text-xl md:text-2xl max-w-xl leading-relaxed text-white/90 font-medium [text-shadow:0_2px_4px_rgb(0_0_0_/_0.4)]">
+              <p className="mt-6 text-base sm:text-lg md:text-xl lg:text-2xl max-w-xl leading-relaxed text-white/90 font-medium [text-shadow:0_2px_4px_rgb(0_0_0_/_0.4)]">
                 OK Farm Fresh — a family dairy in Edarikode, Kottakkal. Fresh
                 cow milk, curd, ghee, nadan moru, lassi &amp; sambharam,
                 delivered or picked up daily.
@@ -214,7 +214,7 @@ export default function Home() {
       </div>
 
       {/* PRODUCTS */}
-      <section className="py-20 md:py-32 relative overflow-hidden">
+      <section className="py-14 sm:py-20 md:py-32 relative overflow-hidden">
         {/* Subtle background blur elements */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-soft/40 rounded-full blur-[100px] -z-10 translate-x-1/2 -translate-y-1/2" />
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7">
@@ -224,7 +224,7 @@ export default function Home() {
                 <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">Our products</span>
               </Reveal>
               <Reveal delay={150}>
-                <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">Made fresh, every day.</h2>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Made fresh, every day.</h2>
               </Reveal>
             </div>
             <Reveal delay={300}>
@@ -249,7 +249,7 @@ export default function Home() {
                         src={p.src}
                         alt={p.name}
                         fill
-                        priority={i === 0}
+                        preload={i === 0}
                         className="object-contain drop-shadow-xl"
                         sizes="(max-width: 768px) 100vw, 33vw"
                       />
@@ -288,7 +288,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
             {stats.map((s, i) => (
               <Reveal key={s.l} delay={i * 120} variant="up" className="text-center md:text-left">
-                <p className="font-heading font-black text-4xl md:text-6xl text-green drop-shadow-sm">
+                <p className="font-heading font-black text-3xl sm:text-4xl md:text-6xl text-green drop-shadow-sm">
                   {s.n !== undefined ? (
                     <Counter
                       to={s.n}
@@ -308,11 +308,11 @@ export default function Home() {
       </section>
 
       {/* PROCESS */}
-      <section className="py-20 md:py-32 bg-cream-warm/20">
+      <section className="py-14 sm:py-20 md:py-32 bg-cream-warm/20">
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7">
           <Reveal className="text-center max-w-xl mx-auto mb-16">
             <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">From cow to cup</span>
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">How your milk reaches you.</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">How your milk reaches you.</h2>
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {process.map((p, i) => (
@@ -331,12 +331,12 @@ export default function Home() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="py-20 md:py-32 bg-cream-warm/40 relative overflow-hidden">
+      <section className="py-14 sm:py-20 md:py-32 bg-cream-warm/40 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none" />
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 relative z-10">
           <Reveal className="text-center max-w-xl mx-auto mb-16">
             <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">Customers love us</span>
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">What our customers say.</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">What our customers say.</h2>
             <p className="mt-5 flex items-center justify-center gap-3">
               <span className="text-yellow-400 text-xl tracking-widest drop-shadow-sm">★★★★★</span>
               <span className="text-sm font-semibold text-muted bg-white/50 backdrop-blur-sm px-3 py-1 rounded-full border border-rule/50">4.9 / 5 from 412 customers</span>
@@ -367,13 +367,13 @@ export default function Home() {
       </section>
 
       {/* FIND US */}
-      <section className="py-20 md:py-32 bg-white relative">
+      <section className="py-14 sm:py-20 md:py-32 bg-white relative">
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <Reveal>
               <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">Find us</span>
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">Visit the farm in Edarikode.</h2>
-              <p className="mt-6 text-lg md:text-xl leading-relaxed text-ink/75 font-medium">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Visit the farm in Edarikode.</h2>
+              <p className="mt-6 text-base sm:text-lg md:text-xl leading-relaxed text-ink/75 font-medium">
                 Drop by between 5 AM and 8 PM — pick up fresh milk, see the
                 cows, or chat with us.
               </p>
@@ -443,7 +443,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 pointer-events-none" />
               <div className="absolute -top-40 -right-40 w-96 h-96 bg-green-400/30 rounded-full blur-[80px] pointer-events-none" />
               <div className="relative z-10">
-                <h2 className="text-white text-4xl md:text-5xl font-extrabold tracking-tight">Want fresh milk every morning?</h2>
+                <h2 className="text-white text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Want fresh milk every morning?</h2>
                 <p className="mt-5 text-white/90 max-w-md text-lg font-medium leading-relaxed">
                   Subscribe to daily delivery. Pause anytime. Available across
                   Kottakkal &amp; nearby.

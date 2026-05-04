@@ -8,14 +8,14 @@ export const metadata = {
 export default function NotFound() {
   return (
     <section className="min-h-[calc(100dvh-var(--nav-h))] flex items-center bg-cream-warm/40">
-      <div className="w-full max-w-[720px] mx-auto px-4 md:px-7 py-20 md:py-32 text-center">
+      <div className="w-full max-w-[720px] mx-auto px-4 md:px-7 py-14 sm:py-20 md:py-32 text-center">
         <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">
           404
         </span>
-        <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
           Page not <span className="text-green">found</span>.
         </h1>
-        <p className="mt-6 text-lg md:text-xl text-ink/75 font-medium">
+        <p className="mt-6 text-base sm:text-lg md:text-xl text-ink/75 font-medium">
           The page you wanted has been moved or never existed. Try the homepage
           or browse our products.
         </p>

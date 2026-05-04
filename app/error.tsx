@@ -16,14 +16,14 @@ export default function Error({
 
   return (
     <section className="min-h-[calc(100dvh-var(--nav-h))] flex items-center bg-cream-warm/40">
-      <div className="w-full max-w-[720px] mx-auto px-4 md:px-7 py-20 md:py-32 text-center">
+      <div className="w-full max-w-[720px] mx-auto px-4 md:px-7 py-14 sm:py-20 md:py-32 text-center">
         <span className="inline-block text-xs font-black tracking-[0.15em] text-red uppercase mb-4">
           Something went wrong
         </span>
-        <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
           We hit a <span className="text-green">bump</span>.
         </h1>
-        <p className="mt-6 text-lg md:text-xl text-ink/75 font-medium">
+        <p className="mt-6 text-base sm:text-lg md:text-xl text-ink/75 font-medium">
           Try again, or go back home. If it keeps happening, give us a call —
           +91 98950 56979.
         </p>

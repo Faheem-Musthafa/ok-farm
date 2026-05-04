@@ -78,7 +78,7 @@ export default function Navbar() {
               alt="OK Farm Fresh"
               width={176}
               height={60}
-              priority
+              preload
               className="h-10 md:h-12 w-auto"
             />
           </Link>

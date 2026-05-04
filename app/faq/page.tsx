@@ -67,12 +67,12 @@ export default function FaqPage() {
 
       <section className="bg-cream-warm/40 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none" />
-        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 py-20 md:py-32 text-center relative z-10">
+        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 py-14 sm:py-20 md:py-32 text-center relative z-10">
           <Reveal>
             <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">
               Frequently asked
             </span>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
+            <h1 className="text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
               Questions, <span className="text-green relative inline-block">
                 answered
                 <svg className="absolute -bottom-2 left-0 w-full h-3 text-yellow-400 opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
@@ -80,21 +80,21 @@ export default function FaqPage() {
                 </svg>
               </span>.
             </h1>
-            <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-ink/75 font-medium">
+            <p className="mt-6 max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-ink/75 font-medium">
               Everything you might want to know before ordering.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="py-16 md:py-24">
+      <section className="py-12 sm:py-16 md:py-24">
         <div className="w-full max-w-[860px] mx-auto px-4 md:px-7">
           <div className="space-y-4">
             {faqs.map((f, i) => (
               <Reveal key={f.q} delay={i * 60}>
                 <details className="group bg-white/80 backdrop-blur-xl border border-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:border-green/20 hover:shadow-[0_12px_30px_rgb(19,122,77,0.08)] open:border-green/30 open:shadow-[0_12px_30px_rgb(19,122,77,0.10)]">
                   <summary className="cursor-pointer list-none px-6 md:px-8 py-5 md:py-6 flex items-center justify-between gap-6">
-                    <span className="font-extrabold text-lg md:text-xl text-ink tracking-tight">
+                    <span className="font-extrabold text-base sm:text-lg md:text-xl text-ink tracking-tight">
                       {f.q}
                     </span>
                     <span className="flex-none w-9 h-9 rounded-full bg-green-soft text-green flex items-center justify-center transition-transform duration-300 group-open:rotate-45">

@@ -58,16 +58,16 @@ export default function AboutPage() {
       {/* HERO BANNER */}
       <section className="relative bg-green text-white overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 pointer-events-none" />
-        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 relative z-10 pt-20 pb-48 md:pt-32 md:pb-64">
+        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 relative z-10 pt-14 sm:pt-20 pb-32 sm:pb-48 md:pt-32 md:pb-64">
           <div className="max-w-3xl">
             <Reveal>
               <span className="text-yellow-400 text-sm font-black uppercase tracking-[0.2em] drop-shadow-sm">
                 About us
               </span>
-              <h1 className="mt-4 text-white text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
+              <h1 className="mt-4 text-white text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
                 A small family dairy in Kottakkal.
               </h1>
-              <p className="mt-6 text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed font-medium">
+              <p className="mt-6 text-base sm:text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed font-medium">
                 We&apos;re OK Farm Fresh — a family-run dairy in Palachiramade,
                 Edarikode. Pure cow milk, traditional curd, slow-cooked ghee,
                 and naatan moru, all made fresh every single day.
@@ -87,7 +87,7 @@ export default function AboutPage() {
       </section>
 
       {/* INTRO + IMAGE */}
-      <section className="py-20 md:py-32 relative bg-white">
+      <section className="py-14 sm:py-20 md:py-32 relative bg-white">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none" />
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -105,8 +105,8 @@ export default function AboutPage() {
             </Reveal>
             <Reveal delay={200}>
               <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">Our story</span>
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">Fresh milk, the way it should be.</h2>
-              <div className="mt-6 space-y-5 text-lg md:text-xl leading-relaxed text-ink/75 font-medium">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Fresh milk, the way it should be.</h2>
+              <div className="mt-6 space-y-5 text-base sm:text-lg md:text-xl leading-relaxed text-ink/75 font-medium">
                 <p>
                   We started OK Farm Fresh because we wanted real milk —
                   the kind we grew up drinking, before it came in long-life
@@ -135,11 +135,11 @@ export default function AboutPage() {
       </section>
 
       {/* WHY US — feature grid */}
-      <section className="py-20 md:py-32 bg-cream-warm/50 relative">
+      <section className="py-14 sm:py-20 md:py-32 bg-cream-warm/50 relative">
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7">
           <Reveal className="max-w-xl mb-16">
             <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">Why us</span>
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">What makes us different.</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">What makes us different.</h2>
           </Reveal>
           <div className="grid sm:grid-cols-2 gap-6">
             {features.map((f, i) => (
@@ -185,7 +185,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA — visit the farm */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-12 sm:py-16 md:py-24 bg-white">
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7">
           <Reveal>
             <div className="relative overflow-hidden rounded-[2rem] bg-ink text-white p-8 md:p-16 grid md:grid-cols-2 gap-10 items-center shadow-2xl">
@@ -196,7 +196,7 @@ export default function AboutPage() {
                 <span className="text-yellow-400 text-sm font-black uppercase tracking-[0.2em] drop-shadow-sm">
                   Visit us
                 </span>
-                <h2 className="text-white mt-4 text-4xl md:text-5xl font-extrabold tracking-tight">Drop by the farm.</h2>
+                <h2 className="text-white mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Drop by the farm.</h2>
                 <p className="mt-5 text-white/80 max-w-md text-lg font-medium leading-relaxed">
                   We&apos;re open every day from 5 AM to 8 PM. Yes, you can
                   meet the cows.

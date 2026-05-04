@@ -54,10 +54,10 @@ export default function ContactPage() {
       {/* HERO */}
       <section className="bg-cream-warm/40 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none" />
-        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 py-20 md:py-32 text-center relative z-10">
+        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 py-14 sm:py-20 md:py-32 text-center relative z-10">
           <Reveal>
             <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4 drop-shadow-sm">Contact</span>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
+            <h1 className="text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
               Order or visit our <span className="text-green relative inline-block">
                 farm
                 <svg className="absolute -bottom-2 left-0 w-full h-3 text-yellow-400 opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
@@ -65,7 +65,7 @@ export default function ContactPage() {
                 </svg>
               </span>.
             </h1>
-            <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed text-ink/75 font-medium">
+            <p className="mt-6 max-w-2xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed text-ink/75 font-medium">
               Call, WhatsApp, or send us a message. We&apos;ll get back the same
               day — usually within an hour.
             </p>
@@ -74,7 +74,7 @@ export default function ContactPage() {
       </section>
 
       {/* CHANNEL CARDS */}
-      <section className="py-16 md:py-24 relative bg-white">
+      <section className="py-12 sm:py-16 md:py-24 relative bg-white">
         <div className="absolute inset-0 bg-green-50/50 pointer-events-none" />
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 relative z-10">
           <div className="grid md:grid-cols-3 gap-6">

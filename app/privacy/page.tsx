@@ -11,22 +11,22 @@ export default function PrivacyPage() {
     <>
       <section className="bg-cream-warm/40 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none" />
-        <div className="w-full max-w-[800px] mx-auto px-4 md:px-7 py-20 md:py-28 text-center relative z-10">
+        <div className="w-full max-w-[800px] mx-auto px-4 md:px-7 py-14 sm:py-20 md:py-28 text-center relative z-10">
           <Reveal>
             <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">
               Legal
             </span>
-            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
               Privacy <span className="text-green">policy</span>.
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-ink/75 font-medium">
+            <p className="mt-6 text-base sm:text-lg md:text-xl text-ink/75 font-medium">
               Last updated 4 May 2026.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="py-16 md:py-24">
+      <section className="py-12 sm:py-16 md:py-24">
         <div className="w-full max-w-[800px] mx-auto px-4 md:px-7 prose-styled">
           <Reveal>
             <div className="space-y-8 text-ink/85 leading-relaxed text-base md:text-lg font-medium">

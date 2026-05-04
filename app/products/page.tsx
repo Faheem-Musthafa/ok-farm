@@ -169,10 +169,10 @@ export default function ProductsPage() {
       {/* HERO BANNER */}
       <section className="bg-cream-warm/40 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none" />
-        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 py-20 md:py-32 text-center relative z-10">
+        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 py-14 sm:py-20 md:py-32 text-center relative z-10">
           <Reveal>
             <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4 drop-shadow-sm">Our products</span>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
+            <h1 className="text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
               Pure dairy, made <span className="text-green relative inline-block">
                 every day
                 <svg className="absolute -bottom-2 left-0 w-full h-3 text-yellow-400 opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
@@ -180,7 +180,7 @@ export default function ProductsPage() {
                 </svg>
               </span>.
             </h1>
-            <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed text-ink/75 font-medium">
+            <p className="mt-6 max-w-2xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed text-ink/75 font-medium">
               Six pure things, made fresh on our farm in Kottakkal. Pickup or
               delivery — your choice.
             </p>
@@ -197,7 +197,7 @@ export default function ProductsPage() {
       </section>
 
       {/* PRODUCT LIST — large rows */}
-      <section className="py-16 md:py-24">
+      <section className="py-12 sm:py-16 md:py-24">
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7">
           <div className="flex flex-col gap-8 md:gap-10">
             {products.map((p, i) => (
@@ -216,7 +216,7 @@ export default function ProductsPage() {
                         src={p.src}
                         alt={p.name}
                         fill
-                        priority={i === 0}
+                        preload={i === 0}
                         className="object-contain p-10 transition-transform duration-1000 group-hover:scale-105 relative z-0 mix-blend-multiply"
                         sizes="(max-width: 768px) 100vw, 35vw"
                       />
@@ -282,12 +282,12 @@ export default function ProductsPage() {
       </section>
 
       {/* REVIEWS */}
-      <section className="py-20 md:py-32 bg-cream-warm/40 relative overflow-hidden">
+      <section className="py-14 sm:py-20 md:py-32 bg-cream-warm/40 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none" />
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 relative z-10">
           <Reveal className="text-center max-w-xl mx-auto mb-16">
             <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">Customer reviews</span>
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">What customers say.</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">What customers say.</h2>
             <p className="mt-5 flex items-center justify-center gap-3">
               <span className="text-yellow-400 text-xl tracking-widest drop-shadow-sm">★★★★★</span>
               <span className="text-sm font-semibold text-muted bg-white/50 backdrop-blur-sm px-3 py-1 rounded-full border border-rule/50">
