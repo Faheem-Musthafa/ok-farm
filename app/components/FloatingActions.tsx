@@ -45,7 +45,7 @@ export default function FloatingActions() {
       </a>
 
       <a
-        href="https://wa.me/919895056979"
+        href="https://wa.me/919633275787"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="WhatsApp OK Farm Fresh"

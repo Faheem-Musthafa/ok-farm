@@ -28,7 +28,7 @@ const channels = [
     title: "Visit the farm",
     sub: "Edarikode, Kottakkal",
     note: "Open every day 5 AM – 8 PM.",
-    href: "https://maps.google.com/?q=Palachiramade+Edarikode+Kottakkal",
+    href: "https://www.google.com/maps/place/10%C2%B059%2755.1%22N+75%C2%B059%2729.5%22E/@10.9986343,75.9915314,17z",
     cta: "Get directions",
     icon: <PinIcon />,
   },
@@ -113,7 +113,7 @@ export default function ContactPage() {
                   Kottakkal, Kerala 676501
                 </p>
                 <a
-                  href="https://maps.google.com/?q=Palachiramade+Edarikode+Kottakkal"
+                  href="https://www.google.com/maps/place/10%C2%B059%2755.1%22N+75%C2%B059%2729.5%22E/@10.9986343,75.9915314,17z"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-green font-bold mt-5 inline-flex items-center gap-2 transition-all duration-300 hover:gap-3 hover:text-green-600 text-sm"
@@ -171,7 +171,7 @@ export default function ContactPage() {
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7">
           <Reveal>
             <a
-              href="https://maps.google.com/?q=Palachiramade+Edarikode+Kottakkal"
+              href="https://www.google.com/maps/place/10%C2%B059%2755.1%22N+75%C2%B059%2729.5%22E/@10.9986343,75.9915314,17z"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-cream-warm/40 border border-white rounded-[2rem] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(19,122,77,0.15)] hover:border-green/30 !p-0 block overflow-hidden relative aspect-[16/9] md:aspect-[21/7] group isolate"

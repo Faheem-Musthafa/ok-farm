@@ -145,6 +145,7 @@ export default function ProductsPage() {
                       src={p.src}
                       alt={p.name}
                       fill
+                      priority={i === 0}
                       className="object-contain p-10 transition-transform duration-1000 group-hover:scale-105 relative z-0 mix-blend-multiply"
                       sizes="(max-width: 768px) 100vw, 35vw"
                     />

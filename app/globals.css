@@ -22,6 +22,17 @@
      Reference them here so Tailwind's font-sans / font-heading utilities work. */
   --font-sans: var(--font-body), system-ui, sans-serif;
   --font-heading: var(--font-display), system-ui, sans-serif;
+
+  --animate-marquee: marquee 38s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 :root {
@@ -72,9 +83,3 @@ html {
   img { max-width: 100%; display: block; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}

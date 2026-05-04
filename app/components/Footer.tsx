@@ -99,7 +99,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://wa.me/919895056979"
+              href="https://wa.me/919633275787"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
@@ -201,7 +201,7 @@ export default function Footer() {
               </svg>
             </span>
             <a
-              href="https://maps.google.com/?q=Palachiramade+Edarikode+Kottakkal"
+              href="https://www.google.com/maps/place/10%C2%B059%2755.1%22N+75%C2%B059%2729.5%22E/@10.9986343,75.9915314,17z"
               target="_blank"
               rel="noopener noreferrer"
               className="pt-2 leading-relaxed transition hover:text-white"

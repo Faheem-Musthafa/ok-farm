@@ -189,7 +189,7 @@ export default function AboutPage() {
                 </p>
                 <div className="mt-8 flex flex-wrap gap-4">
                   <a
-                    href="https://maps.google.com/?q=Palachiramade+Edarikode+Kottakkal"
+                    href="https://www.google.com/maps/place/10%C2%B059%2755.1%22N+75%C2%B059%2729.5%22E/@10.9986343,75.9915314,17z"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 font-sans font-bold px-7 py-4 rounded-xl border-2 border-transparent cursor-pointer transition-all duration-300 hover:-translate-y-[2px] active:translate-y-0 whitespace-nowrap bg-white text-ink shadow-xl hover:shadow-2xl hover:bg-cream text-base md:text-lg"

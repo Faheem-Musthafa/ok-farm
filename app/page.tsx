@@ -173,7 +173,7 @@ export default function Home() {
       {/* MARQUEE STRIP */}
       <div className="bg-green-dark border-y border-green text-white py-3 md:py-4">
         <div className="overflow-hidden">
-          <div className="flex w-max animate-[marquee_38s_linear_infinite] hover:[animation-play-state:paused] opacity-90">
+          <div className="flex w-max animate-marquee hover:[animation-play-state:paused] opacity-90">
             {Array.from({ length: 2 }).map((_, i) => (
               <div key={i} className="flex gap-12 pr-12 text-sm md:text-base font-bold uppercase tracking-[0.15em] items-center">
                 <span>✦ Fresh cow milk</span>
@@ -223,6 +223,7 @@ export default function Home() {
                         src={p.src}
                         alt={p.name}
                         fill
+                        priority={i === 0}
                         className="object-contain drop-shadow-xl"
                         sizes="(max-width: 768px) 100vw, 25vw"
                       />
@@ -361,7 +362,7 @@ export default function Home() {
               </div>
               <div className="mt-10 flex flex-wrap gap-4">
                 <a
-                  href="https://maps.google.com/?q=Palachiramade+Edarikode+Kottakkal"
+                  href="https://www.google.com/maps/place/10%C2%B059%2755.1%22N+75%C2%B059%2729.5%22E/@10.9986343,75.9915314,17z"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 font-sans font-bold px-7 py-4 rounded-xl border-2 border-transparent cursor-pointer transition-all duration-300 hover:-translate-y-[2px] active:translate-y-0 whitespace-nowrap bg-green text-white shadow-xl hover:shadow-2xl hover:bg-green-500 text-base md:text-lg"
@@ -376,7 +377,7 @@ export default function Home() {
 
             <Reveal delay={200}>
               <a
-                href="https://maps.google.com/?q=Palachiramade+Edarikode+Kottakkal"
+                href="https://www.google.com/maps/place/10%C2%B059%2755.1%22N+75%C2%B059%2729.5%22E/@10.9986343,75.9915314,17z"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block relative aspect-[5/4] rounded-3xl overflow-hidden bg-cream-warm shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_60px_rgb(19,122,77,0.15)] group isolate"
