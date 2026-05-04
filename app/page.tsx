@@ -1,41 +1,59 @@
 import Link from "next/link";
 import Image from "next/image";
 import Reveal from "./components/Reveal";
+import ParallaxImage from "./components/ParallaxImage";
+import Counter from "./components/Counter";
 
 const products = [
   {
     name: "Fresh Cow Milk",
     weight: "500 ml & 1 L",
     price: "₹35 / 500ml",
-    src: "/product-milk.png",
+    src: "/product-milk-glass.png",
     badge: "Daily fresh",
   },
   {
     name: "Curd",
     weight: "200g & 500g",
     price: "₹40 / 200g",
-    src: "/product-yogurt.png",
+    src: "/product-curd.png",
     badge: "Set fresh",
   },
   {
     name: "Pure Ghee",
     weight: "250 ml & 500 ml",
     price: "₹420 / 250ml",
-    src: "/product-butter.png",
+    src: "/product-ghee.png",
     badge: "Slow-cooked",
   },
   {
     name: "Nadan Moru",
     weight: "500 ml",
     price: "₹25 / 500ml",
-    src: "/product-cream.png",
+    src: "/product-moru.png",
     badge: "Traditional",
+  },
+  {
+    name: "Lassi",
+    weight: "200 ml",
+    price: "₹30 / 200ml",
+    src: "/product-lassi.png",
+    badge: "Sweet & cool",
+  },
+  {
+    name: "Sambharam",
+    weight: "500 ml",
+    price: "₹25 / 500ml",
+    src: "/product-sambharam.png",
+    badge: "Spiced",
   },
 ];
 
-const stats = [
+type Stat = { v: string; l: string; n?: number; suffix?: string; prefix?: string };
+
+const stats: Stat[] = [
   { v: "5 AM", l: "Daily milking" },
-  { v: "100%", l: "Pure cow milk" },
+  { v: "100%", l: "Pure cow milk", n: 100, suffix: "%" },
   { v: "Same-day", l: "Delivered fresh" },
   { v: "8 PM", l: "Last collection" },
 ];
@@ -89,39 +107,44 @@ export default function Home() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden min-h-[calc(100dvh-var(--nav-h))] flex items-center">
-        {/* bg image */}
-        <Image
+        {/* bg image with parallax + scroll zoom */}
+        <ParallaxImage
           src="/hero-farm.png"
           alt="OK Farm Fresh pasture"
           fill
           priority
-          className="object-cover -z-10"
+          parallaxSpeed={0.3}
+          zoom
+          className="object-cover"
           sizes="100vw"
         />
         {/* dark gradient overlay for legibility */}
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/70 via-black/45 to-black/10" />
+        {/* floating decorative blobs */}
+        <div className="absolute top-[20%] right-[8%] w-72 h-72 rounded-full bg-yellow-300/20 blur-[80px] -z-10 animate-[blob_22s_ease-in-out_infinite] pointer-events-none" />
+        <div className="absolute bottom-[10%] left-[5%] w-96 h-96 rounded-full bg-green-500/30 blur-[100px] -z-10 animate-[blob_18s_ease-in-out_infinite_reverse] pointer-events-none" />
 
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 py-16 md:py-24 w-full relative">
           <div className="max-w-2xl text-white">
-            <Reveal delay={0}>
+            <Reveal delay={0} variant="scale">
               <span className="inline-flex items-center gap-2 text-[11px] sm:text-xs font-bold tracking-wider px-3.5 py-1.5 rounded-full bg-white/15 text-white backdrop-blur-md border border-white/20 uppercase">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-[pulse-dot_1.8s_ease-out_infinite]" />
                 Open today · 5 AM – 8 PM
               </span>
             </Reveal>
-            
-            <Reveal delay={150}>
+
+            <Reveal delay={150} variant="blur" duration={1.0}>
               <h1 className="mt-6 text-[clamp(2.75rem,6.5vw,5.5rem)] text-white font-extrabold leading-[1.05] tracking-tight [text-shadow:0_4px_16px_rgb(0_0_0_/_0.3)]">
                 Pure cow milk,{" "}
                 <span className="text-yellow-300">straight from our farm.</span>
               </h1>
             </Reveal>
 
-            <Reveal delay={300}>
+            <Reveal delay={300} variant="up">
               <p className="mt-6 text-lg sm:text-xl md:text-2xl max-w-xl leading-relaxed text-white/90 font-medium [text-shadow:0_2px_4px_rgb(0_0_0_/_0.4)]">
                 OK Farm Fresh — a family dairy in Edarikode, Kottakkal. Fresh
-                cow milk, curd, ghee, and nadan moru, delivered or picked up
-                daily.
+                cow milk, curd, ghee, nadan moru, lassi &amp; sambharam,
+                delivered or picked up daily.
               </p>
             </Reveal>
 
@@ -146,7 +169,7 @@ export default function Home() {
           </div>
 
           {/* floating call card */}
-          <Reveal delay={800} className="hidden md:flex absolute bottom-8 right-8 z-20">
+          <Reveal delay={800} variant="scale" className="hidden md:flex absolute bottom-8 right-8 z-20 animate-[float_8s_ease-in-out_infinite]">
             <a
               href="tel:+919895056979"
               className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-4 flex items-center gap-4 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] transition-all duration-300 border border-white/20"
@@ -210,22 +233,25 @@ export default function Home() {
               </Link>
             </Reveal>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {products.map((p, i) => (
-              <Reveal key={p.name} delay={i * 150}>
-                <article className="group relative bg-white/60 backdrop-blur-xl border border-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(19,122,77,0.12)] hover:border-green/20 h-full flex flex-col overflow-hidden isolate">
+              <Reveal key={p.name} delay={i * 100} variant="scale">
+                <article className="group relative bg-white/60 backdrop-blur-xl border border-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(19,122,77,0.12)] hover:border-green/20 h-full flex flex-col overflow-hidden isolate hover-lift">
                   <div className="aspect-[4/3] relative bg-gradient-to-br from-cream-warm/50 to-white flex items-center justify-center p-6">
                     <span className="absolute top-4 left-4 z-10 inline-flex items-center gap-1.5 font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-md text-green-dark border border-white shadow-sm text-[10px]">
                       {p.badge}
                     </span>
-                    <div className="relative w-full h-full transition-transform duration-700 group-hover:scale-110">
+                    <div
+                      className="relative w-full h-full transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-2 animate-[float_7s_ease-in-out_infinite]"
+                      style={{ animationDelay: `${i * 0.4}s` }}
+                    >
                       <Image
                         src={p.src}
                         alt={p.name}
                         fill
                         priority={i === 0}
                         className="object-contain drop-shadow-xl"
-                        sizes="(max-width: 768px) 100vw, 25vw"
+                        sizes="(max-width: 768px) 100vw, 33vw"
                       />
                     </div>
                   </div>
@@ -261,9 +287,18 @@ export default function Home() {
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
             {stats.map((s, i) => (
-              <Reveal key={s.l} delay={i * 150} className="text-center md:text-left">
+              <Reveal key={s.l} delay={i * 120} variant="up" className="text-center md:text-left">
                 <p className="font-heading font-black text-4xl md:text-6xl text-green drop-shadow-sm">
-                  {s.v}
+                  {s.n !== undefined ? (
+                    <Counter
+                      to={s.n}
+                      suffix={s.suffix ?? ""}
+                      prefix={s.prefix ?? ""}
+                      duration={1.6}
+                    />
+                  ) : (
+                    s.v
+                  )}
                 </p>
                 <p className="text-sm md:text-base font-bold text-ink mt-2 tracking-wide">{s.l}</p>
               </Reveal>

@@ -3,9 +3,23 @@ import Link from "next/link";
 import Reveal from "../components/Reveal";
 
 export const metadata = {
-  title: "Products — OK Farm Fresh",
+  title: "Products",
   description:
-    "Fresh cow milk, curd, pure ghee, and nadan moru — all from OK Farm Fresh, Kottakkal.",
+    "Fresh cow milk, curd, pure ghee, nadan moru, lassi & sambharam — all from OK Farm Fresh, Kottakkal.",
+  alternates: { canonical: "/products" },
+  openGraph: {
+    title: "Products — OK Farm Fresh",
+    description:
+      "Fresh cow milk, curd, pure ghee, nadan moru, lassi & sambharam — all from OK Farm Fresh, Kottakkal.",
+    url: "/products",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Products — OK Farm Fresh",
+    description:
+      "Fresh cow milk, curd, pure ghee, nadan moru, lassi & sambharam — all from OK Farm Fresh, Kottakkal.",
+  },
 };
 
 type Product = {
@@ -20,7 +34,7 @@ const products: Product[] = [
   {
     name: "Fresh Cow Milk",
     desc: "Whole milk, milked the same morning. 100% pure cow milk, no mixing.",
-    src: "/product-milk.png",
+    src: "/product-milk-fresh.png",
     badge: "Daily fresh",
     variants: [
       { size: "500 ml", price: "₹35" },
@@ -30,7 +44,7 @@ const products: Product[] = [
   {
     name: "Curd",
     desc: "Set in earthen pots, the proper Kerala way. Thick, creamy, perfectly tart.",
-    src: "/product-yogurt.png",
+    src: "/product-curd.png",
     badge: "Set fresh",
     variants: [
       { size: "200 g", price: "₹40" },
@@ -40,7 +54,7 @@ const products: Product[] = [
   {
     name: "Pure Ghee",
     desc: "Slow-cooked from cultured cream over a small flame. Rich golden, traditional.",
-    src: "/product-butter.png",
+    src: "/product-ghee.png",
     badge: "Slow-cooked",
     variants: [
       { size: "250 ml", price: "₹420" },
@@ -50,11 +64,31 @@ const products: Product[] = [
   {
     name: "Nadan Moru",
     desc: "Traditional Kerala buttermilk. Lightly spiced, refreshing, perfect with rice.",
-    src: "/product-cream.png",
+    src: "/product-moru.png",
     badge: "Naatan",
     variants: [
       { size: "500 ml", price: "₹25" },
       { size: "1 litre", price: "₹45" },
+    ],
+  },
+  {
+    name: "Lassi",
+    desc: "Sweet, chilled yogurt drink — blended fresh from our curd. Smooth and creamy.",
+    src: "/product-lassi.png",
+    badge: "Sweet & cool",
+    variants: [
+      { size: "200 ml", price: "₹30" },
+      { size: "500 ml", price: "₹70" },
+    ],
+  },
+  {
+    name: "Sambharam",
+    desc: "Spiced Kerala-style buttermilk with ginger, curry leaves, and green chilli. Cooling.",
+    src: "/product-sambharam.png",
+    badge: "Spiced",
+    variants: [
+      { size: "500 ml", price: "₹30" },
+      { size: "1 litre", price: "₹55" },
     ],
   },
 ];
@@ -99,8 +133,39 @@ const reviews = [
 ];
 
 export default function ProductsPage() {
+  const productsJsonLd = {
+    "@context": "https://schema.org",
+    "@graph": products.map((p) => {
+      const minPrice = p.variants.reduce(
+        (m, v) => Math.min(m, parseInt(v.price.replace(/\D/g, ""), 10) || Infinity),
+        Infinity,
+      );
+      return {
+        "@type": "Product",
+        name: p.name,
+        description: p.desc,
+        image: `https://okfarmfresh.com${p.src}`,
+        brand: { "@type": "Brand", name: "OK Farm Fresh" },
+        offers: {
+          "@type": "AggregateOffer",
+          priceCurrency: "INR",
+          lowPrice: isFinite(minPrice) ? minPrice : undefined,
+          offerCount: p.variants.length,
+          availability: "https://schema.org/InStock",
+          seller: { "@type": "LocalBusiness", name: "OK Farm Fresh" },
+        },
+      };
+    }),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productsJsonLd) }}
+      />
+
       {/* HERO BANNER */}
       <section className="bg-cream-warm/40 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none" />
@@ -116,7 +181,7 @@ export default function ProductsPage() {
               </span>.
             </h1>
             <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed text-ink/75 font-medium">
-              Four pure things, made fresh on our farm in Kottakkal. Pickup or
+              Six pure things, made fresh on our farm in Kottakkal. Pickup or
               delivery — your choice.
             </p>
             <div className="mt-10 flex flex-wrap gap-3 justify-center">
@@ -124,6 +189,8 @@ export default function ProductsPage() {
               <span className="inline-flex items-center gap-1.5 text-sm font-bold px-4 py-2 rounded-full bg-white shadow-sm border border-rule/50 text-green-dark">Curd</span>
               <span className="inline-flex items-center gap-1.5 text-sm font-bold px-4 py-2 rounded-full bg-white shadow-sm border border-rule/50 text-green-dark">Pure Ghee</span>
               <span className="inline-flex items-center gap-1.5 text-sm font-bold px-4 py-2 rounded-full bg-white shadow-sm border border-rule/50 text-green-dark">Nadan Moru</span>
+              <span className="inline-flex items-center gap-1.5 text-sm font-bold px-4 py-2 rounded-full bg-white shadow-sm border border-rule/50 text-green-dark">Lassi</span>
+              <span className="inline-flex items-center gap-1.5 text-sm font-bold px-4 py-2 rounded-full bg-white shadow-sm border border-rule/50 text-green-dark">Sambharam</span>
             </div>
           </Reveal>
         </div>
@@ -134,21 +201,26 @@ export default function ProductsPage() {
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7">
           <div className="flex flex-col gap-8 md:gap-10">
             {products.map((p, i) => (
-              <Reveal key={p.name} delay={100}>
+              <Reveal key={p.name} delay={i * 80} variant={i % 2 === 0 ? "left" : "right"}>
                 <article className="bg-white/80 backdrop-blur-xl border border-white rounded-3xl transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgb(19,122,77,0.12)] hover:border-green/20 overflow-hidden flex flex-col md:flex-row shadow-[0_8px_30px_rgb(0,0,0,0.04)] group">
                   <div className="relative w-full md:w-[35%] lg:w-[30%] aspect-[4/3] md:aspect-auto md:min-h-[320px] bg-cream-warm/30 overflow-hidden flex-shrink-0 border-r border-white/50">
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/40 to-transparent z-10 pointer-events-none" />
                     <span className="absolute top-6 left-6 z-20 inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider px-4 py-2 rounded-full text-green-dark bg-white shadow-sm border border-rule/50">
                       {p.badge}
                     </span>
-                    <Image
-                      src={p.src}
-                      alt={p.name}
-                      fill
-                      priority={i === 0}
-                      className="object-contain p-10 transition-transform duration-1000 group-hover:scale-105 relative z-0 mix-blend-multiply"
-                      sizes="(max-width: 768px) 100vw, 35vw"
-                    />
+                    <div
+                      className="absolute inset-0 animate-[float_8s_ease-in-out_infinite] will-change-transform"
+                      style={{ animationDelay: `${i * 0.5}s` }}
+                    >
+                      <Image
+                        src={p.src}
+                        alt={p.name}
+                        fill
+                        priority={i === 0}
+                        className="object-contain p-10 transition-transform duration-1000 group-hover:scale-105 relative z-0 mix-blend-multiply"
+                        sizes="(max-width: 768px) 100vw, 35vw"
+                      />
+                    </div>
                   </div>
                   <div className="p-8 md:p-10 lg:p-12 flex-1 flex flex-col justify-center relative z-20">
                     <h3 className="text-2xl md:text-3xl font-extrabold mb-4 text-green uppercase tracking-wide">{p.name}</h3>
@@ -226,8 +298,8 @@ export default function ProductsPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {reviews.map((r, i) => (
-              <Reveal key={r.name} delay={(i % 3) * 150}>
-                <figure className="bg-white/80 backdrop-blur-xl border border-white rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(19,122,77,0.12)] hover:border-green/20 p-8 h-full flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.04)] isolate">
+              <Reveal key={r.name} delay={(i % 3) * 120} variant="blur">
+                <figure className="bg-white/80 backdrop-blur-xl border border-white rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(19,122,77,0.12)] hover:border-green/20 p-8 h-full flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.04)] isolate hover-lift">
                   <span className="inline-block text-yellow-400 tracking-[0.2em] text-xl drop-shadow-sm mb-4">{"★".repeat(r.stars)}</span>
                   <blockquote className="mb-6 text-ink/90 font-medium leading-relaxed flex-1 text-lg">
                     &ldquo;{r.body}&rdquo;

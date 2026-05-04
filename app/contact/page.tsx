@@ -2,9 +2,23 @@ import Reveal from "../components/Reveal";
 import ContactForm from "../components/ContactForm";
 
 export const metadata = {
-  title: "Contact — OK Farm Fresh",
+  title: "Contact",
   description:
-    "Reach OK Farm Fresh, Edarikode, Kottakkal. Phone +91 98950 56979. Open daily 5 AM – 8 PM.",
+    "Reach OK Farm Fresh, Edarikode, Kottakkal. Phone +91 98950 56979. WhatsApp +91 96332 75787. Open daily 5 AM – 8 PM.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact — OK Farm Fresh",
+    description:
+      "Reach OK Farm Fresh, Edarikode, Kottakkal. Phone +91 98950 56979. Open daily 5 AM – 8 PM.",
+    url: "/contact",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact — OK Farm Fresh",
+    description:
+      "Reach OK Farm Fresh, Edarikode, Kottakkal. Open daily 5 AM – 8 PM.",
+  },
 };
 
 const channels = [

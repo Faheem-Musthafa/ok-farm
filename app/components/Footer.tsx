@@ -10,9 +10,6 @@ export default function Footer() {
       <div className="absolute -top-[300px] -right-[200px] w-[600px] h-[600px] bg-green-500/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute -bottom-[300px] -left-[200px] w-[600px] h-[600px] bg-green-800/40 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* top accent strip */}
-      <div className="h-1.5 bg-gradient-to-r from-green via-yellow-400 to-green shadow-[0_2px_10px_rgba(250,204,21,0.2)]" />
-
       {/* CTA band */}
       <div className="border-b border-white/10 relative z-10 bg-white/[0.02] backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-10 md:flex-row md:items-center md:px-7 md:py-14">
@@ -137,6 +134,11 @@ export default function Footer() {
                 Contact
               </Link>
             </li>
+            <li>
+              <Link href="/faq" className="text-white/70 transition hover:text-green">
+                FAQ
+              </Link>
+            </li>
           </ul>
         </Reveal>
 
@@ -163,6 +165,16 @@ export default function Footer() {
             <li>
               <Link href="/products" className="text-white/70 transition hover:text-green">
                 Nadan Moru
+              </Link>
+            </li>
+            <li>
+              <Link href="/products" className="text-white/70 transition hover:text-green">
+                Lassi
+              </Link>
+            </li>
+            <li>
+              <Link href="/products" className="text-white/70 transition hover:text-green">
+                Sambharam
               </Link>
             </li>
           </ul>
@@ -228,10 +240,20 @@ export default function Footer() {
       <div className="border-t border-white/10 relative z-10 bg-black/20 backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-8 text-sm text-white/60 sm:flex-row md:px-7 font-medium tracking-wide">
           <p>© {year} OK Farm Fresh. All rights reserved.</p>
-          <p className="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-full border border-white/10">
-            Made fresh in Kerala
-            <span className="inline-block h-2 w-2 rounded-full bg-green shadow-[0_0_8px_rgba(19,122,77,0.8)]" />
-          </p>
+          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <Link href="/privacy" className="hover:text-white transition">
+              Privacy
+            </Link>
+            <Link href="/terms" className="hover:text-white transition">
+              Terms
+            </Link>
+            <Link href="/faq" className="hover:text-white transition">
+              FAQ
+            </Link>
+            <span className="hidden sm:inline-flex items-center gap-3 bg-white/5 px-4 py-2 rounded-full border border-white/10">
+              Made fresh in Kerala
+            </span>
+          </nav>
         </div>
       </div>
     </footer>

@@ -111,7 +111,23 @@ export default function ContactForm() {
     if (Object.keys(errs).length > 0) return;
 
     setStatus("sending");
-    setTimeout(() => setStatus("sent"), 800);
+
+    const lines = [
+      `*New order — OK Farm Fresh*`,
+      ``,
+      `*Name:* ${fields.name.trim()}`,
+      `*Phone:* ${fields.phone.trim()}`,
+      `*Email:* ${fields.email.trim()}`,
+      `*Topic:* ${fields.topic}`,
+      ``,
+      `*Message:*`,
+      fields.message.trim(),
+    ];
+    const text = encodeURIComponent(lines.join("\n"));
+    const url = `https://wa.me/919633275787?text=${text}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+
+    setTimeout(() => setStatus("sent"), 400);
   }
 
   if (status === "sent") {
@@ -128,8 +144,10 @@ export default function ContactForm() {
             />
           </svg>
         </div>
-        <h3 className="mb-2">Message sent!</h3>
-        <p className="text-ink/75">We&apos;ll get back to you the same day.</p>
+        <h3 className="mb-2">Order opened in WhatsApp!</h3>
+        <p className="text-ink/75">
+          Hit send in WhatsApp to deliver your order. We&apos;ll reply the same day.
+        </p>
         <button
           onClick={() => {
             setStatus("idle");
@@ -299,7 +317,7 @@ export default function ContactForm() {
         disabled={status === "sending"}
         className="inline-flex items-center justify-center gap-2 font-sans font-bold px-8 py-4 rounded-xl border-2 border-transparent cursor-pointer transition-all duration-300 hover:-translate-y-[2px] active:translate-y-0 whitespace-nowrap bg-green text-white shadow-xl hover:shadow-2xl hover:bg-green-500 text-base md:text-lg w-full sm:w-auto disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-xl mt-2"
       >
-        {status === "sending" ? "Sending..." : "Send message"}
+        {status === "sending" ? "Opening WhatsApp..." : "Send order via WhatsApp"}
       </button>
     </form>
   );

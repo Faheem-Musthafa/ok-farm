@@ -3,9 +3,23 @@ import Link from "next/link";
 import Reveal from "../components/Reveal";
 
 export const metadata = {
-  title: "About — OK Farm Fresh",
+  title: "About",
   description:
     "About OK Farm Fresh, a family dairy in Edarikode, Kottakkal, Kerala.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About — OK Farm Fresh",
+    description:
+      "About OK Farm Fresh, a family dairy in Edarikode, Kottakkal, Kerala.",
+    url: "/about",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About — OK Farm Fresh",
+    description:
+      "About OK Farm Fresh, a family dairy in Edarikode, Kottakkal, Kerala.",
+  },
 };
 
 const features = [
@@ -129,9 +143,9 @@ export default function AboutPage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 gap-6">
             {features.map((f, i) => (
-              <Reveal key={f.title} delay={i * 150}>
-                <div className="bg-white/80 backdrop-blur-xl border border-white rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(19,122,77,0.12)] hover:border-green/20 p-8 h-full shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-                  <div className="w-14 h-14 rounded-2xl bg-green-soft text-2xl flex items-center justify-center mb-6 shadow-inner">
+              <Reveal key={f.title} delay={i * 120} variant={i % 2 === 0 ? "left" : "right"}>
+                <div className="bg-white/80 backdrop-blur-xl border border-white rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(19,122,77,0.12)] hover:border-green/20 p-8 h-full shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover-lift">
+                  <div className="w-14 h-14 rounded-2xl bg-green-soft text-2xl flex items-center justify-center mb-6 shadow-inner animate-[float_5s_ease-in-out_infinite]" style={{ animationDelay: `${i * 0.3}s` }}>
                     {f.icon}
                   </div>
                   <h3 className="text-2xl font-bold mb-3">{f.title}</h3>
@@ -148,7 +162,7 @@ export default function AboutPage() {
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {certs.map((c, i) => (
-              <Reveal key={c.label} delay={i * 100}>
+              <Reveal key={c.label} delay={i * 100} variant="scale">
                 <div className="bg-cream-warm/30 border border-rule/50 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-white hover:border-green/30 p-6 md:p-8 text-center">
                   <div className="w-14 h-14 mx-auto rounded-full bg-green-soft text-green flex items-center justify-center mb-4 shadow-sm">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
