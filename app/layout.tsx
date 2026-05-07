@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import FloatingActions from "./components/FloatingActions";
-import ScrollProgress from "./components/ScrollProgress";
+import SiteChrome from "./components/SiteChrome";
+import { SanityLive } from "@/sanity/lib/live";
 
 const display = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -133,11 +131,8 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans relative">
-        <ScrollProgress />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <FloatingActions />
+        <SiteChrome>{children}</SiteChrome>
+        <SanityLive />
       </body>
     </html>
   );

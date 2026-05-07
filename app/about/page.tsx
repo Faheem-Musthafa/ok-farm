@@ -95,7 +95,7 @@ export default function AboutPage() {
               <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_rgb(0,0,0,0.08)] group isolate">
                 <div className="absolute inset-0 border-4 border-white/20 rounded-3xl z-20 pointer-events-none" />
                 <Image
-                  src="/about-family.png"
+                  src="/ok afrm.png"
                   alt="At OK Farm Fresh"
                   fill
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"

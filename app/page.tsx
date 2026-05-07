@@ -3,51 +3,16 @@ import Image from "next/image";
 import Reveal from "./components/Reveal";
 import ParallaxImage from "./components/ParallaxImage";
 import Counter from "./components/Counter";
+import { sanityFetch } from "@/sanity/lib/live";
+import { urlFor } from "@/sanity/lib/image";
+import {
+  FEATURED_PRODUCTS_QUERY,
+  FEATURED_TESTIMONIALS_QUERY,
+  type Product,
+  type Testimonial,
+} from "@/sanity/lib/queries";
 
-const products = [
-  {
-    name: "Fresh Cow Milk",
-    weight: "500 ml & 1 L",
-    price: "₹35 / 500ml",
-    src: "/product-milk-glass.png",
-    badge: "Daily fresh",
-  },
-  {
-    name: "Curd",
-    weight: "200g & 500g",
-    price: "₹40 / 200g",
-    src: "/product-curd.png",
-    badge: "Set fresh",
-  },
-  {
-    name: "Pure Ghee",
-    weight: "250 ml & 500 ml",
-    price: "₹420 / 250ml",
-    src: "/product-ghee.png",
-    badge: "Slow-cooked",
-  },
-  {
-    name: "Nadan Moru",
-    weight: "500 ml",
-    price: "₹25 / 500ml",
-    src: "/product-moru.png",
-    badge: "Traditional",
-  },
-  {
-    name: "Lassi",
-    weight: "200 ml",
-    price: "₹30 / 200ml",
-    src: "/product-lassi.png",
-    badge: "Sweet & cool",
-  },
-  {
-    name: "Sambharam",
-    weight: "500 ml",
-    price: "₹25 / 500ml",
-    src: "/product-sambharam.png",
-    badge: "Spiced",
-  },
-];
+export const revalidate = 3600;
 
 type Stat = { v: string; l: string; n?: number; suffix?: string; prefix?: string };
 
@@ -81,28 +46,14 @@ const process = [
   },
 ];
 
-const reviews = [
-  {
-    name: "Rahul",
-    place: "Kottakkal",
-    stars: 5,
-    body: "Best milk in Edarikode. Whole family on the daily delivery now.",
-  },
-  {
-    name: "Meera",
-    place: "Tirurangadi",
-    stars: 5,
-    body: "Their curd reminds me of my grandmother's. Thick, slightly tart, perfect.",
-  },
-  {
-    name: "Anand",
-    place: "Manjeri",
-    stars: 5,
-    body: "Ghee is the real thing — properly cultured, slow-cooked. Tastes amazing.",
-  },
-];
+export default async function Home() {
+  const [productsRes, testimonialsRes] = await Promise.all([
+    sanityFetch({ query: FEATURED_PRODUCTS_QUERY }),
+    sanityFetch({ query: FEATURED_TESTIMONIALS_QUERY }),
+  ]);
+  const products = productsRes.data as Product[] | null;
+  const testimonials = testimonialsRes.data as Testimonial[] | null;
 
-export default function Home() {
   return (
     <>
       {/* HERO */}
@@ -214,73 +165,83 @@ export default function Home() {
       </div>
 
       {/* PRODUCTS */}
-      <section className="py-14 sm:py-20 md:py-32 relative overflow-hidden">
-        {/* Subtle background blur elements */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-soft/40 rounded-full blur-[100px] -z-10 translate-x-1/2 -translate-y-1/2" />
-        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7">
-          <div className="flex items-end justify-between flex-wrap gap-6 mb-12 md:mb-16">
-            <div>
-              <Reveal delay={0}>
-                <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">Our products</span>
-              </Reveal>
-              <Reveal delay={150}>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Made fresh, every day.</h2>
+      {products && products.length > 0 && (
+        <section className="py-14 sm:py-20 md:py-32 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-soft/40 rounded-full blur-[100px] -z-10 translate-x-1/2 -translate-y-1/2" />
+          <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7">
+            <div className="flex items-end justify-between flex-wrap gap-6 mb-12 md:mb-16">
+              <div>
+                <Reveal delay={0}>
+                  <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">Our products</span>
+                </Reveal>
+                <Reveal delay={150}>
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Made fresh, every day.</h2>
+                </Reveal>
+              </div>
+              <Reveal delay={300}>
+                <Link href="/products" className="inline-flex items-center justify-center gap-2 font-sans font-bold px-6 py-3 rounded-xl border-2 border-rule cursor-pointer transition-all duration-300 hover:-translate-y-[2px] active:translate-y-0 whitespace-nowrap text-ink bg-white hover:border-green hover:text-green hover:shadow-lg">
+                  View all products →
+                </Link>
               </Reveal>
             </div>
-            <Reveal delay={300}>
-              <Link href="/products" className="inline-flex items-center justify-center gap-2 font-sans font-bold px-6 py-3 rounded-xl border-2 border-rule cursor-pointer transition-all duration-300 hover:-translate-y-[2px] active:translate-y-0 whitespace-nowrap text-ink bg-white hover:border-green hover:text-green hover:shadow-lg">
-                View all products →
-              </Link>
-            </Reveal>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {products.map((p, i) => {
+                const variants = p.variants ?? [];
+                const sizes = variants.map((v) => v?.size).filter(Boolean).join(" & ");
+                const teaser = variants[0]
+                  ? `₹${variants[0].price} / ${variants[0].size}`
+                  : "";
+                return (
+                  <Reveal key={p._id} delay={i * 100} variant="scale">
+                    <article className="group relative bg-white/60 backdrop-blur-xl border border-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(19,122,77,0.12)] hover:border-green/20 h-full flex flex-col overflow-hidden isolate hover-lift">
+                      <div className="aspect-[4/3] relative bg-gradient-to-br from-cream-warm/50 to-white flex items-center justify-center p-6">
+                        {p.badge && (
+                          <span className="absolute top-4 left-4 z-10 inline-flex items-center gap-1.5 font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-md text-green-dark border border-white shadow-sm text-[10px]">
+                            {p.badge}
+                          </span>
+                        )}
+                        <div
+                          className="relative w-full h-full transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-2 animate-[float_7s_ease-in-out_infinite]"
+                          style={{ animationDelay: `${i * 0.4}s` }}
+                        >
+                          {p.image && (
+                            <Image
+                              src={urlFor(p.image).width(600).height(450).url()}
+                              alt={p.name ?? "Product"}
+                              fill
+                              preload={i === 0}
+                              className="object-contain drop-shadow-xl"
+                              sizes="(max-width: 768px) 100vw, 33vw"
+                            />
+                          )}
+                        </div>
+                      </div>
+                      <div className="p-6 md:p-8 flex-1 flex flex-col bg-white/40">
+                        <h3 className="text-xl md:text-2xl font-extrabold mb-1 tracking-tight text-ink">
+                          {p.name}
+                        </h3>
+                        <p className="text-sm text-muted font-medium mb-4">{sizes}</p>
+                        <div className="mt-auto flex items-center justify-between">
+                          <p className="font-black text-green text-xl">{teaser}</p>
+                          <Link
+                            href="/contact"
+                            className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-green text-white shadow-lg shadow-green/30 transition-transform duration-300 group-hover:scale-110 hover:bg-green-dark"
+                            aria-label={`Order ${p.name}`}
+                          >
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </Link>
+                        </div>
+                      </div>
+                    </article>
+                  </Reveal>
+                );
+              })}
+            </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {products.map((p, i) => (
-              <Reveal key={p.name} delay={i * 100} variant="scale">
-                <article className="group relative bg-white/60 backdrop-blur-xl border border-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(19,122,77,0.12)] hover:border-green/20 h-full flex flex-col overflow-hidden isolate hover-lift">
-                  <div className="aspect-[4/3] relative bg-gradient-to-br from-cream-warm/50 to-white flex items-center justify-center p-6">
-                    <span className="absolute top-4 left-4 z-10 inline-flex items-center gap-1.5 font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-md text-green-dark border border-white shadow-sm text-[10px]">
-                      {p.badge}
-                    </span>
-                    <div
-                      className="relative w-full h-full transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-2 animate-[float_7s_ease-in-out_infinite]"
-                      style={{ animationDelay: `${i * 0.4}s` }}
-                    >
-                      <Image
-                        src={p.src}
-                        alt={p.name}
-                        fill
-                        preload={i === 0}
-                        className="object-contain drop-shadow-xl"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                      />
-                    </div>
-                  </div>
-                  <div className="p-6 md:p-8 flex-1 flex flex-col bg-white/40">
-                    <h3 className="text-xl md:text-2xl font-extrabold mb-1 tracking-tight text-ink">
-                      {p.name}
-                    </h3>
-                    <p className="text-sm text-muted font-medium mb-4">{p.weight}</p>
-                    <div className="mt-auto flex items-center justify-between">
-                      <p className="font-black text-green text-xl">
-                        {p.price}
-                      </p>
-                      <Link
-                        href="/contact"
-                        className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-green text-white shadow-lg shadow-green/30 transition-transform duration-300 group-hover:scale-110 hover:bg-green-dark"
-                        aria-label={`Order ${p.name}`}
-                      >
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* STATS STRIP */}
       <section className="bg-green-soft py-16 md:py-20 relative overflow-hidden">
@@ -331,40 +292,56 @@ export default function Home() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="py-14 sm:py-20 md:py-32 bg-cream-warm/40 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none" />
-        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 relative z-10">
-          <Reveal className="text-center max-w-xl mx-auto mb-16">
-            <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">Customers love us</span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">What our customers say.</h2>
-            <p className="mt-5 flex items-center justify-center gap-3">
-              <span className="text-yellow-400 text-xl tracking-widest drop-shadow-sm">★★★★★</span>
-              <span className="text-sm font-semibold text-muted bg-white/50 backdrop-blur-sm px-3 py-1 rounded-full border border-rule/50">4.9 / 5 from 412 customers</span>
-            </p>
-          </Reveal>
-          <div className="grid md:grid-cols-3 gap-6">
-            {reviews.map((r, i) => (
-              <Reveal key={r.name} delay={i * 150}>
-                <figure className="bg-white/80 backdrop-blur-xl border border-white rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(19,122,77,0.12)] hover:border-green/20 p-8 h-full flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.04)] isolate">
-                  <span className="inline-block text-yellow-400 tracking-[0.2em] text-xl drop-shadow-sm mb-4">{"★".repeat(r.stars)}</span>
-                  <blockquote className="mb-6 text-ink/90 font-medium leading-relaxed flex-1 text-lg">
-                    &ldquo;{r.body}&rdquo;
-                  </blockquote>
-                  <figcaption className="flex items-center gap-4 pt-6 border-t border-rule/60">
-                    <span className="w-12 h-12 rounded-full bg-green text-white font-black text-lg flex items-center justify-center shadow-inner">
-                      {r.name[0]}
-                    </span>
-                    <div>
-                      <p className="font-bold text-ink">{r.name}</p>
-                      <p className="text-xs font-semibold text-muted uppercase tracking-wider">{r.place}</p>
-                    </div>
-                  </figcaption>
-                </figure>
-              </Reveal>
-            ))}
+      {testimonials && testimonials.length > 0 && (
+        <section className="py-14 sm:py-20 md:py-32 bg-cream-warm/40 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none" />
+          <div className="w-full max-w-[1280px] mx-auto px-4 md:px-7 relative z-10">
+            <Reveal className="text-center max-w-xl mx-auto mb-16">
+              <span className="inline-block text-xs font-black tracking-[0.15em] text-green uppercase mb-4">Customers love us</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">What our customers say.</h2>
+              <p className="mt-5 flex items-center justify-center gap-3">
+                <span className="text-yellow-400 text-xl tracking-widest drop-shadow-sm">★★★★★</span>
+                <span className="text-sm font-semibold text-muted bg-white/50 backdrop-blur-sm px-3 py-1 rounded-full border border-rule/50">4.9 / 5 from 412 customers</span>
+              </p>
+            </Reveal>
+            <div className="grid md:grid-cols-3 gap-6">
+              {testimonials.map((r, i) => (
+                <Reveal key={r._id} delay={i * 150}>
+                  <figure className="bg-white/80 backdrop-blur-xl border border-white rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(19,122,77,0.12)] hover:border-green/20 p-8 h-full flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.04)] isolate">
+                    <span className="inline-block text-yellow-400 tracking-[0.2em] text-xl drop-shadow-sm mb-4">{"★".repeat(r.rating ?? 5)}</span>
+                    <blockquote className="mb-6 text-ink/90 font-medium leading-relaxed flex-1 text-lg">
+                      &ldquo;{r.quote}&rdquo;
+                    </blockquote>
+                    <figcaption className="flex items-center gap-4 pt-6 border-t border-rule/60">
+                      <span className="w-12 h-12 rounded-full bg-green text-white font-black text-lg flex items-center justify-center shadow-inner overflow-hidden">
+                        {r.avatar ? (
+                          <Image
+                            src={urlFor(r.avatar).width(96).height(96).url()}
+                            alt={r.name ?? ""}
+                            width={48}
+                            height={48}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          (r.name ?? "?")[0]
+                        )}
+                      </span>
+                      <div>
+                        <p className="font-bold text-ink">{r.name}</p>
+                        {r.location && (
+                          <p className="text-xs font-semibold text-muted uppercase tracking-wider">
+                            {r.location}
+                          </p>
+                        )}
+                      </div>
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* FIND US */}
       <section className="py-14 sm:py-20 md:py-32 bg-white relative">
@@ -419,7 +396,7 @@ export default function Home() {
               >
                 <div className="absolute inset-0 border-4 border-white/20 rounded-3xl z-20 pointer-events-none" />
                 <Image
-                  src="/about-family.png"
+                  src="/ok afrm.png"
                   alt="OK Farm Fresh in Edarikode"
                   fill
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
